@@ -1,0 +1,12 @@
+<html>
+    <head>
+        <script>
+            async function setCookie() {
+                return fetch('https://notsamesite.com:3002/firstpartycookie');
+            }
+        </script>
+    </head>
+    <body>
+        <button onclick="setCookie()">Set first-party cookie</button>
+    </body>
+</html>
