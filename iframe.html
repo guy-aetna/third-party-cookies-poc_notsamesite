@@ -1,37 +1,42 @@
 <html>
-    <head>
-        <script>
-            function hasStorageAPI() {
-                return typeof document.requestStorageAccess === 'function';
-            }
+  <head>
+    <script>
+      function hasStorageAPI() {
+        return (
+          typeof document.requestStorageAccess === "function" &&
+          typeof document.requestStorageAccess === "function"
+        );
+      }
 
-            function requestThirdPartyCookie() {
-                return fetch('https://notsamesite.com:3002/thirdpartycookie');
-            }
+      function requestThirdPartyCookie() {
+        return fetch("https://notsamesite.com:3002/iframe_thirdpartycookie");
+      }
 
-            async function setThirdPartyCookie() {
-                await document.requestStorageAccess()
-                        .then((res) => console.log('access granted', res))
-                        .catch((err) => console.log('access denied', err))
-             
+      async function setThirdPartyCookieWithPermission() {
+        await document
+          .requestStorageAccess()
+          .then((res) => console.log("access granted", res))
+          .catch((err) => console.log("access denied", err));
 
-                return requestThirdPartyCookie();
-            }
+        return requestThirdPartyCookie();
+      }
 
-            window.addEventListener('DOMContentLoaded', (event) => {
-                if (!hasStorageAPI()) {
-                    return;
-                }
+      window.addEventListener("DOMContentLoaded", (event) => {
+        if (!hasStorageAPI()) {
+          return requestThirdPartyCookie();
+        }
 
-                const btn = document.createElement("button"); 
+        const btn = document.createElement("button");
 
-                btn.innerHTML = "Allow Access";
-                btn.setAttribute("id", 'btn');
-                document.body.append(btn);
+        btn.innerHTML = "Allow Access";
+        btn.setAttribute("id", "btn");
+        document.body.append(btn);
 
-                document.getElementById('btn').addEventListener('click', setThirdPartyCookie);
-            });
-        </script>
-    </head>
-    <body></body>
+        document
+          .getElementById("btn")
+          .addEventListener("click", setThirdPartyCookieWithPermission);
+      });
+    </script>
+  </head>
+  <body></body>
 </html>

@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <script>
+      fetch(
+        "https://notsamesite.com:3002/redirect_thirdpartycookie"
+      ).then((response) =>
+        window.location.replace("https://samesite.com:3001")
+      );
+    </script>
+  </head>
+  <body></body>
+</html>
